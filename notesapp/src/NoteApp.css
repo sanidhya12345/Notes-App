@@ -1,0 +1,25 @@
+.heading{
+    font-size: 30px;
+    text-align: center;
+    margin-top: 25px;
+}
+.inputbox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top:30px
+}
+.textarea{
+    font-size: 20px;
+}
+.buttonSC{
+    display: grid;
+    gap:30px;
+    margin-left: 20px;
+}
+
+.buttonSC button{
+    font-size:25px;
+    padding: 10px 10px 10px 10px;
+    border-radius: 12px;
+}
