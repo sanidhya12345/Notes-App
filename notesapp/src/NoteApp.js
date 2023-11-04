@@ -6,16 +6,24 @@ let notesArray = [];
 let comp;
 const Note = (props) => {
   const style = {
-    backgroundColor: "#FF3",
-    width: "900px",
-    height: "100px",
+    backgroundColor: "#F8F0E5",
+    width: "895px",
+    height: "98px",
     marginTop: "20px",
-    border: "2px solid red",
+    border: "2px solid #F8F0E5",
+    borderRadius:'10px'
   };
 
   return (
     <div style={style} key={props.index}>
-      <h3>{props.data}</h3>
+      <textarea
+              name="note"
+              rows="5"
+              cols="97"
+              defaultValue={props.data}
+              disabled={props.disable}
+              onChange={props.change}
+              ></textarea>
     </div>
   );
 };
@@ -24,8 +32,12 @@ class NoteApp extends Component {
     note: "",
     notesArray: [],
     index: 0,
-    comp
+    comp,
+    disable:false
   };
+  handleChange=(e)=>{
+     
+  }
   handleNote = (e) => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
@@ -34,6 +46,17 @@ class NoteApp extends Component {
     e.preventDefault();
     this.setState({ note: "" });
   };
+  editNote=(e)=>{
+    comp = notesArray.map((data) => {
+      return (
+        <div>
+          <Note data={data.note} index={data.index} disable={this.state.disable} change={this.handleChange}></Note>
+          <button type="button" onClick={this.deleteNote} id={data.index} className="delete">Delete</button>
+        </div>
+      );
+    });
+    this.setState({comp:comp});
+  }
   deleteNote=(e)=>{
     e.preventDefault();
     // notesArray.filter(item=>item.index!==e.target.id);
@@ -43,8 +66,9 @@ class NoteApp extends Component {
     comp = notesArray.map((data) => {
       return (
         <div>
-          <Note data={data.note} index={data.index}></Note>
-          <button type="button" onClick={this.deleteNote} id={data.index}>delete</button>
+          <Note data={data.note} index={data.index} disable={!this.state.disable} change={this.handleChange}></Note>
+          <button type="button" onClick={this.deleteNote} id={data.index} className="delete">Delete</button>
+          <button type="button" id={data.index} className="delete" onClick={this.editNote}>Edit</button>
         </div>
       );
     });
@@ -62,8 +86,9 @@ class NoteApp extends Component {
     comp = notesArray.map((data) => {
       return (
         <div>
-          <Note data={data.note} index={data.index}></Note>
-          <button type="button" onClick={this.deleteNote} id={data.index}>delete</button>
+          <Note data={data.note} index={data.index} disable={!this.state.disable} change={this.handleChange}></Note>
+          <button type="button" onClick={this.deleteNote} id={data.index} className="delete">Delete</button>
+          <button type="button" id={data.index} className="delete" onClick={this.editNote}>Edit</button>
         </div>
       );
     });
@@ -85,14 +110,14 @@ class NoteApp extends Component {
               cols="100"
               value={this.state.note}
               className="textarea"
-              placeholder="Write Note"
+              placeholder=" Write Note"
               onChange={this.handleNote}></textarea>
           </div>
           <div className="buttonSC">
-            <button type="button" onClick={this.save}>
+            <button type="button" onClick={this.save} className="b1">
               Save
             </button>
-            <button type="button" onClick={this.clear}>
+            <button type="button" onClick={this.clear} className="b2">
               Clear
             </button>
           </div>
