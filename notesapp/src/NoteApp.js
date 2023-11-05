@@ -33,10 +33,11 @@ class NoteApp extends Component {
     notesArray: [],
     index: 0,
     comp,
-    disable:false
+    disable:false,
+    cNote:''
   };
   handleChange=(e)=>{
-     
+     this.setState({cnote:e.target.value})
   }
   handleNote = (e) => {
     const { name, value } = e.target;
@@ -46,19 +47,8 @@ class NoteApp extends Component {
     e.preventDefault();
     this.setState({ note: "" });
   };
-  editNote=(e)=>{
-    comp = notesArray.map((data) => {
-      return (
-        <div>
-          <Note data={data.note} index={data.index} disable={this.state.disable} change={this.handleChange}></Note>
-          <button type="button" onClick={this.deleteNote} id={data.index} className="delete">Delete</button>
-        </div>
-      );
-    });
-    this.setState({comp:comp});
-  }
   deleteNote=(e)=>{
-    e.preventDefault();
+    //e.preventDefault();
     // notesArray.filter(item=>item.index!==e.target.id);
     delete notesArray[e.target.id];
     this.setState({notesArray:notesArray});
@@ -68,14 +58,55 @@ class NoteApp extends Component {
         <div>
           <Note data={data.note} index={data.index} disable={!this.state.disable} change={this.handleChange}></Note>
           <button type="button" onClick={this.deleteNote} id={data.index} className="delete">Delete</button>
-          <button type="button" id={data.index} className="delete" onClick={this.editNote}>Edit</button>
+          <button type="button" id={data.index} className="edit" onClick={this.editNote}>Edit</button>
+        </div>
+      );
+    });
+    this.setState({comp:comp});
+  }
+  saveNote=(e)=>{
+    //console.log(this.state.cnote);
+    notesArray[e.target.id].note=this.state.cnote;
+    this.setState({notesArray:notesArray})
+    console.log(notesArray);
+    comp = notesArray.map((data) => {
+      return (
+        <div>
+          <Note data={data.note} index={data.index} disable={!this.state.disable} change={this.handleChange}></Note>
+          <button type="button" onClick={this.deleteNote} id={data.index} className="delete">Delete</button>
+          <button type="button" id={data.index} className="edit" onClick={this.editNote}>Edit</button>
+        </div>
+      );
+    });
+    this.setState({comp:comp});
+  }
+  cancel=(e)=>{
+    comp = notesArray.map((data) => {
+      return (
+        <div>
+          <Note data={data.note} index={data.index} disable={!this.state.disable} change={this.handleChange}></Note>
+          <button type="button" onClick={this.deleteNote} id={data.index} className="delete">Delete</button>
+          <button type="button" id={data.index} className="edit" onClick={this.editNote}>Edit</button>
+        </div>
+      );
+    });
+    this.setState({comp:comp});
+  }
+  editNote=(e)=>{
+   // e.preventDefault();
+    comp = notesArray.map((data) => {
+      return (
+        <div>
+          <Note data={data.note} index={data.index} disable={this.state.disable} change={this.handleChange}></Note>
+          <button type="button" onClick={this.deleteNote} id={data.index} className="delete">Delete</button>
+          <button type="button" onClick={this.saveNote} id={data.index} className="save">Save</button>
+          <button type="button" onClick={this.cancel} id={data.index} className="cancel">Cancel</button>
         </div>
       );
     });
     this.setState({comp:comp});
   }
   save = (e) => {
-    e.preventDefault();
     let obj = {};
     obj.index = this.state.index;
     obj.note = this.state.note;
@@ -88,11 +119,12 @@ class NoteApp extends Component {
         <div>
           <Note data={data.note} index={data.index} disable={!this.state.disable} change={this.handleChange}></Note>
           <button type="button" onClick={this.deleteNote} id={data.index} className="delete">Delete</button>
-          <button type="button" id={data.index} className="delete" onClick={this.editNote}>Edit</button>
+          <button type="button" id={data.index} className="edit" onClick={this.editNote}>Edit</button>
         </div>
       );
     });
     this.setState({comp:comp});
+    this.setState({ note: "" });
     console.log(notesArray);
   };
   render() {

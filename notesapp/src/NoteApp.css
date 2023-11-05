@@ -39,7 +39,28 @@
     border:none
 }
 .delete{
-    background-color:#FF6969;
+    background-color:#D988B9;
+    font-size:20px;
+    border:none;
+    padding: 5px 5px 5px 5px;
+    border-radius:10px
+}
+.edit{
+    background-color:#FFFB73;
+    font-size:20px;
+    border:none;
+    padding: 5px 5px 5px 5px;
+    border-radius:10px
+}
+.save{
+    background-color:#A7D397;
+    font-size:20px;
+    border:none;
+    padding: 5px 5px 5px 5px;
+    border-radius:10px
+}
+.cancel{
+    background-color:#C70039;
     font-size:20px;
     border:none;
     padding: 5px 5px 5px 5px;
