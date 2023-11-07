@@ -52,7 +52,7 @@ class NoteApp extends Component {
     // notesArray.filter(item=>item.index!==e.target.id);
     delete notesArray[e.target.id];
     this.setState({notesArray:notesArray});
-    this.setState({ index: this.state.index - 1 });
+    // this.setState({ index: this.state.index - 1 });
     comp = notesArray.map((data) => {
       return (
         <div>
